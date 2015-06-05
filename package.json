@@ -1,0 +1,27 @@
+{
+  "name": "module",
+  "version": "",
+  "description": "A tiny module loader",
+  "homepage": "http://jorg.thuijls.net",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Jorg Thuijls",
+    "email": "jorg@thuijls.net",
+    "url": "http://jorg.thuijls.net"
+  },
+  "bugs": {
+    "url": "https://github.com/jorgt/module/issues",
+    "email": "jorg@thuijls.net"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "grunt": "",
+    "grunt-contrib-jshint": "",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-mocha": "^0.4.12",
+    "jshint-stylish": "",
+    "mocha": "^2.2.5",
+    "sinon": "^1.14.1"
+  }
+}
