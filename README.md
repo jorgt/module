@@ -1,36 +1,70 @@
-# Rogue
+# Module
 
-Boo boo bla bla
+A small AMD style loader, adds a `define` and `require` function that can be used to modularize your codebase.
 
-## TO DO
+## usage
 
-Techy stuff
-- Mousemove, grrr. 
-- Fix div position on game initialization and player (re) positioning
+`require` is used for modules that can be called and reused by other modules. 
 
-Game stuff
-- world map, fits a single screen. is a zoomed out version of bigger one
-- every world map tile is 1 screen as 'Land', which is a giant continuous map. 
-  this should be made screen by screen though to prevent generating a div with millions of node. 
-- improve dungeons. 
-- Add different types of landscapes
+`define` is used for modules that are just to do stuff with already registered modules. 
 
-## IDEAS
+Syntax is the same for both. 
 
-Techy stuff
-- Move some of the generation server side? This would be faster in Node. 
-- Use sockets to stream messages to the client regarding creation status?
-- Use sockets to stream 'endless worlds'? Chunk creation of planets/overworlds
+#### Basics
 
-Several 'levels'
-- world map, with seas, forests, plains etc. Animated blocky clouds on the sides?
-- zoomed into a plain, forest whatever, an 'overworld' to walk around in and discover things. towns, caves
-- under world. dungeons and caves
+The basics is just a name and a callback:
 
-All the usual jazz like stats, items, magics.
+```javascript
+//declare a useable module. always return something from a required module!
+require('my.printer.world', function() {
+    return 'world';
+});
 
-Extend lightsource to have two radiusses?
+//declare a useable module. always return something from a required module!
+require('my.printer.hello', function() {
+    return 'hello';
+});
 
-Extend AStar to break off after n length
+//use our module. 
+define(
+    'my.printer.echo',                          //name
+    ['my.printer.hello', 'my.printer.world'],   //array of dependencies
+    function(hello, world) {                    //callback
+        console.log(hello, world);
+    }
+);
 
-Auto pilot mode. Click a tile, display a trail. Then move player to that tile. If enemy encounter, break auto pilot.
+// prints `hello world` to the console. 
+```
+
+#### Namespaces
+
+It's possible to declare a module 'private'. Namespaces at this moment are limited to the everything up to the last dot. Example: `my.cool.module` would be in namespace `my.cool`. Module `foo.bar` is in namespace `foo`, etcetera. 
+
+As per the previous example:
+
+```javascript
+//this is in namespace `my.printer`. 
+require('my.printer.world', function() {
+    return 'world';
+});
+
+//this is in a different namespace, namely `my.other`. 
+//The boolean sets it to private!
+require('my.other.hello', true, function() {
+    return 'hello';
+});
+
+//our defined module is in namespace `my.printer`. 
+define(
+    'my.printer.echo',                        //name
+    ['my.other.hello', 'my.printer.world'],   //array of dependencies
+    function(hello, world) {                  //callback
+        console.log(hello, world);
+    }
+);
+
+// this will throw an error:
+// Privacy mismatch: my.printer.echo - my.other.hello
+```
+

@@ -14,31 +14,30 @@ describe('Module', function() {
     describe('#require', function() {
         shared(require);
 
-        define('differs from define', function() {
-            it('should not be able to be used as a dependent', function(done) {
-
+        describe('limits usage on the module', function() {
+            it('so that it can\'t be used as a dependent', function(done) {
                 expect(function() {
                     define('space.one', func);
 
                     define('space.two', ['space.one'], func);
-                }).to.throw(Error)
+                }).to.throw(Error);
 
                 done();
-            })
-        })
+            });
+        });
 
     });
 });
 
+function func(){}
 
 function shared(testing) {
-    var func = function() {}
 
     //testing the function is included
     describe('should exist', function() {
 
         it('as a global function', function(done) {
-            expect(testing).to.not.be.undefined
+            expect(testing).to.not.be.undefined;
             expect(testing).to.be.a('function');
             done();
         });
@@ -129,7 +128,7 @@ function shared(testing) {
             require('name.space.two', function() {
                 return function() {
                     return 'two';
-                }
+                };
             });
 
             require('name.new.three', true, function() {

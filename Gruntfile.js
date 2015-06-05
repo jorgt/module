@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 		jshint: {
 			// You get to make the name
 			// The paths tell JSHint which files to validate
-			all: ['Gruntfile.js', 'src/**/*.js'],
+			all: ['Gruntfile.js', 'src/**/*.js', 'tests/**/*.js'],
 			options: {
 				curly: false,
 				eqeqeq: true,
@@ -14,15 +14,16 @@ module.exports = function(grunt) {
 				forin: true,
 				undef: true,
 				unused: true,
+				expr: true,
 				globals: {
 					define: false,
 					require: false,
-					requirejs: true,
 					module: true,
-					guid: false,
-					random: false,
-					uneven: false,
-					console: false
+					expect: true,
+					mocha: true,
+					describe: true,
+					it: true,
+					beforeEach: true
 				},
 				reporter: require('jshint-stylish')
 			}

@@ -70,7 +70,6 @@
 
 					if (_undefined(_loaded[dep])) {
 						execute = false;
-						break;
 					} else {
 						if (!_moduleCanBeUsed(dep)) {
 							throw new Error(dep + ' is required, not defined, and cannot be used as a dependent');
@@ -98,7 +97,7 @@
 
 	function _privacyMismatch(mod, dep) {
 		var same = _getNamespace(mod) === _getNamespace(dep);
-		if (!same) {
+		if (same === false) {
 			var dependent = _getModule(dep);
 			return dependent.private || false;
 		} else {
