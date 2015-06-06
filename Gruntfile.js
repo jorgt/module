@@ -45,8 +45,12 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				banner: [
-					'/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-					'/*! <%= pkg.description %> */\n'
+					'/*\n',
+					'  <%= pkg.name %>, compiled on <%= grunt.template.today("yyyy-mm-dd") %>\n',
+					'  <%= pkg.description %>\n',
+					'  <%= pkg.author.name %>\n',
+					'  <%= pkg.author.url %>\n',
+					'*/\n'
 				].join(''),
 				compress: true
 			},
